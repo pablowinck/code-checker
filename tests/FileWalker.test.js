@@ -1,4 +1,4 @@
-const FileWalker = require("../src/application/FileWalker");
+const FileWalker = require("../src/FileWalker");
 
 describe("Walker tests", () => {
   it("Quando chamar walker passando uma pasta, para cada arquivo deve chamar um callback", async () => {
