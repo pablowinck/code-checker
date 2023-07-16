@@ -3,7 +3,7 @@ const fs = require("fs");
 const { Configuration, OpenAIApi } = require("openai");
 const FileWalker = require("./FileWalker.js");
 const AIMessage = require("./AIMessage.js");
-const sourcePath = "../tests/testFolder/src";
+const sourcePath = "./tests/mock-project/src";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -41,7 +41,7 @@ const fileWalker = new FileWalker(sourcePath, async (path) => {
     );
     const { choices } = response.data;
     const { content } = choices[0].message;
-    if (`${content}`.includes("NO_FIXES")) {
+    if (`${content}`.toUpperCase().includes("NO_FIXES")) {
       console.log(`No fixes for file ${path}`);
       return;
     }
