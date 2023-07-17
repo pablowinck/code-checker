@@ -49,7 +49,7 @@ const fileWalker = new FileWalker(sourcePath, async (path) => {
 
     const { content } = response.data.choices[0].message;
 
-    if (`${content}`.toUpperCase() === "NO_FIXES") {
+    if (`${content}`.toUpperCase().includes("NO_FIXES")) {
       console.log(`No fixes for file ${path}`);
       return;
     }
