@@ -3,7 +3,7 @@ const fs = require("fs");
 const { Configuration, OpenAIApi } = require("openai");
 const FileWalker = require("./FileWalker.js");
 const AIMessage = require("./AIMessage.js");
-const sourcePath = "./tests/mock-project/src";
+const sourcePath = "./src";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
@@ -26,7 +26,7 @@ const fileWalker = new FileWalker(sourcePath, async (path) => {
     console.log(`Processing file ${path}...`);
     const { messages } = new AIMessage(fileContent);
     const response = await openai.createChatCompletion({
-      model: "gpt-4",
+      model: "gpt-3.5-turbo-16k",
       messages,
       temperature: 1,
       max_tokens: MAX_LENGTH,
