@@ -1,13 +1,13 @@
 /**
  * @typedef {Object} Message
- * @property {String} role - Papel da mensagem.
- * @property {String} content - Conteudo da mensagem.
+ * @property {String} role - Role of the message.
+ * @property {String} content - Content of the message.
  */
 
 class AIMessage {
   #systemMessage = `You will receive a piece of code, identify the programming language and refactor the code following these instructions:\n`;
   #rules = [
-    `Fix normal mistakes of the programming language detected.`,
+    `Fix normal mistakes of the detected programming language.`,
     `If you find a potential error, add a comment to the line above the potential error, with the following syntax: //TODO: <message>.`,
     `You must strictly follow the principles of clean code.`,
     `Apply early returns.`,
@@ -20,7 +20,7 @@ class AIMessage {
 
   /**
    * @constructor AIMessage
-   * @param {String} userMessage - Mensagem do usuario.
+   * @param {String} userMessage - User's message.
    */
   constructor(userMessage) {
     this.#userMessage = userMessage;
@@ -28,8 +28,8 @@ class AIMessage {
 
   /**
    * @method messages
-   * @description Metodo responsavel por retornar as mensagens.
-   * @returns {Array<Message>} Retorna um array de mensagens.
+   * @description Method responsible for returning the messages.
+   * @returns {Array<Message>} Returns an array of messages.
    */
   get messages() {
     return [
