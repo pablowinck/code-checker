@@ -89,7 +89,7 @@ class FileWalker {
    */
   #checkDirectory(path) {
     this.#directories.find(
-      (directory) => directory.path === path
+      (directory) => directory.path === path,
     ).checked = true;
   }
 
@@ -137,7 +137,7 @@ class FileWalker {
    * @returns {void}
    */
   async #addDirectory(path) {
-    this.#directories.push({ path: path, checked: false });
+    this.#directories.push({ path, checked: false });
   }
 }
 

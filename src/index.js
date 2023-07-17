@@ -1,4 +1,4 @@
-require('dotenv').config()
+require("dotenv").config();
 const fs = require("fs");
 const { Configuration, OpenAIApi } = require("openai");
 const FileWalker = require("./FileWalker.js");
@@ -19,14 +19,14 @@ const fileWalker = new FileWalker(sourcePath, async (path) => {
     return;
   }
   await new Promise((resolve) =>
-    setTimeout(resolve, RATE_LIMIT_SECONDS * 1000 * counter)
+    setTimeout(resolve, RATE_LIMIT_SECONDS * 1000 * counter),
   );
   try {
     console.time(`File ${path} processed`);
     console.log(`Processing file ${path}...`);
     const { messages } = new AIMessage(fileContent);
     const response = await openai.createChatCompletion({
-      model: "gpt-3.5-turbo-16k",
+      model: "gpt-4",
       messages,
       temperature: 1,
       max_tokens: MAX_LENGTH,
@@ -35,12 +35,11 @@ const fileWalker = new FileWalker(sourcePath, async (path) => {
       presence_penalty: 0.0,
     });
     fs.writeFileSync(
-      "last_output.json",
-      JSON.stringify(response.data.choices[0]),
-      "utf8"
+      `last_output_${new Date().getTime()}.json`,
+      JSON.stringify(response.data.choices),
+      "utf8",
     );
-    const { choices } = response.data;
-    const { content } = choices[0].message;
+    const { content } = response.data.choices[0].message;
     if (`${content}`.toUpperCase().includes("NO_FIXES")) {
       console.log(`No fixes for file ${path}`);
       return;

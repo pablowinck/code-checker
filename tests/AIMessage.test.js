@@ -7,7 +7,7 @@ describe("AIMessage tests", () => {
     expect(messages).toEqual([
       {
         role: "system",
-        content: `You will receive a piece of code, identify the programming language and correct the code following these instructions:
+        content: `You will receive a piece of code, identify the programming language and refactor the code following these instructions:
 1. Fix normal mistakes of the programming language detected.
 2. If you find a potential error, add a comment to the line above the potential error, with the following syntax: //TODO: <message>.
 3. You must strictly follow the principles of clean code.

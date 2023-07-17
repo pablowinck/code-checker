@@ -5,7 +5,7 @@
  */
 
 class AIMessage {
-  #systemMessage = `You will receive a piece of code, identify the programming language and correct the code following these instructions:\n`;
+  #systemMessage = `You will receive a piece of code, identify the programming language and refactor the code following these instructions:\n`;
   #rules = [
     `Fix normal mistakes of the programming language detected.`,
     `If you find a potential error, add a comment to the line above the potential error, with the following syntax: //TODO: <message>.`,
@@ -46,7 +46,7 @@ class AIMessage {
 
   #getSystemMessage() {
     return this.#systemMessage.concat(
-      this.#rules.map((rule, index) => `${index + 1}. ${rule}`).join("\n")
+      this.#rules.map((rule, index) => `${index + 1}. ${rule}`).join("\n"),
     );
   }
 }
