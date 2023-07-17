@@ -2,20 +2,20 @@ const fs = require("fs");
 
 /**
  * @typedef {Object} Directory
- * @property {String} path - Caminho da pasta.
- * @property {Boolean} checked - Flag que indica se a pasta ja foi caminhada.
+ * @property {String} path - Path of the folder.
+ * @property {Boolean} checked - Flag indicating whether the folder has been walked.
  */
 /**
  * @class FileWalker
- * @description Essa classe eh responsavel por caminhar pelos arquivos de uma pasta e executar uma funcao de callback para cada arquivo encontrado.
- * @param {String} path - Caminho da pasta a ser caminhada.
- * @param {Function} callback - Funcao de callback a ser executada para cada arquivo encontrado.
- * @returns {FileWalker} Retorna uma instancia de FileWalker.
+ * @description This class is responsible for walking through the files of a folder and executing a callback function for each file found.
+ * @param {String} path - Path of the folder to be walked.
+ * @param {Function} callback - Callback function to be executed for each file found.
+ * @returns {FileWalker} Returns an instance of FileWalker.
  */
 class FileWalker {
   /**
    * @type {String} path
-   * @description Caminho da pasta a ser caminhada.
+   * @description Path of the folder to be walked.
    */
   #path;
   /**
@@ -24,8 +24,8 @@ class FileWalker {
   #directories;
   /**
    * @type {Function} callback
-   * @description Funcao de callback a ser executada para cada arquivo encontrado.
-   * @param {String} path - Caminho do arquivo.
+   * @description Callback function to be executed for each file found.
+   * @param {String} path - Path of the file.
    * @returns {void}
    * @example
    * const callback = (path) => {
@@ -42,8 +42,8 @@ class FileWalker {
 
   /**
    * @method walk
-   * @description Metodo responsavel por caminhar pelos arquivos de uma pasta e executar uma funcao de callback para cada arquivo encontrado.
-   * @returns {Promise} Retorna uma promessa que eh resolvida quando todos os arquivos da pasta sao caminhados.
+   * @description Method responsible for walking through the files of a folder and executing a callback function for each file found.
+   * @returns {Promise} Returns a promise that is resolved when all files in the folder are walked.
    */
   async walk() {
     await this.#mapDirectories();
@@ -57,14 +57,14 @@ class FileWalker {
 
   /**
    * @method #mapDirectories
-   * @description Metodo responsavel por mapear todas as pastas da pasta passada no construtor.
-   * @returns {Promise} Retorna uma promessa que eh resolvida quando todas as pastas sao mapeadas.
+   * @description Method responsible for mapping all folders of the folder passed in the constructor.
+   * @returns {Promise} Returns a promise that is resolved when all folders are mapped.
    */
   async #mapDirectories() {
     await new Promise((resolve, reject) => {
       fs.readdir(this.#path, (err, files) => {
         if (err) {
-          console.error(`[${this.#path}] -- Erro ao ler o diretorio\n`, err);
+          console.error(`[${this.#path}] -- Error reading the directory`, err);
           reject();
           return;
         }
@@ -84,8 +84,8 @@ class FileWalker {
 
   /**
    * @method #checkDirectory
-   * @description Metodo responsavel por marcar uma pasta como caminhada.
-   * @param {String} path - Caminho da pasta a ser marcada.
+   * @description Method responsible for marking a folder as walked.
+   * @param {String} path - Path of the folder to be marked.
    */
   #checkDirectory(path) {
     this.#directories.find(
@@ -95,8 +95,8 @@ class FileWalker {
 
   /**
    * @method #getUnchekedDirectory
-   * @description Metodo responsavel por retornar uma pasta que ainda nao foi caminhada.
-   * @returns {Directory} Retorna uma pasta que ainda nao foi caminhada.
+   * @description Method responsible for returning a folder that has not yet been walked.
+   * @returns {Directory} Returns a folder that has not yet been walked.
    */
   #getUnchekedDirectory() {
     return this.#directories.find(({ checked }) => !checked);
@@ -104,15 +104,15 @@ class FileWalker {
 
   /**
    * @method #walkInDirectory
-   * @description Metodo responsavel por caminhar pelos arquivos de uma pasta e executar uma funcao de callback para cada arquivo encontrado.
-   * @param {String} path - Caminho da pasta a ser caminhada.
-   * @returns {Promise} Retorna uma promessa que eh resolvida quando todos os arquivos da pasta sao caminhados.
+   * @description Method responsible for walking through the files of a folder and executing a callback function for each file found.
+   * @param {String} path - Path of the folder to be walked.
+   * @returns {Promise} Returns a promise that is resolved when all files in the folder are walked.
    */
   async #walkInDirectory(path) {
     await new Promise((resolve, reject) => {
       fs.readdir(path, (err, files) => {
         if (err) {
-          console.error(`[${path}] -- Erro ao ler o diretorio\n` + err);
+          console.error(`[${path}] -- Error reading the directory`, err);
           reject();
         } else {
           files.forEach((file) => {
@@ -132,8 +132,8 @@ class FileWalker {
 
   /**
    * @method #addDirectory
-   * @description Metodo responsavel por adicionar uma pasta na lista de pastas a serem caminhadas.
-   * @param {String} path - Caminho da pasta a ser adicionada.
+   * @description Method responsible for adding a folder to the list of folders to be walked.
+   * @param {String} path - Path of the folder to be added.
    * @returns {void}
    */
   async #addDirectory(path) {
