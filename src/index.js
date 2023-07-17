@@ -4,7 +4,7 @@ const { Configuration, OpenAIApi } = require("openai");
 const FileWalker = require("./FileWalker.js");
 const AIMessage = require("./AIMessage.js");
 
-const sourcePath = "./src";
+const sourcePath = "./tests/mock-project/src";
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
