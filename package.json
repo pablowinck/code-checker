@@ -5,7 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "test": "jest",
-    "start": "node src/index.js"
+    "start": "node src/index.js",
+    "start:mock": "node src/index.js ./tests/mock-project/src"
   },
   "keywords": [],
   "author": "",

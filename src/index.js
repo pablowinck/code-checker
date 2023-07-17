@@ -4,7 +4,10 @@ const { Configuration, OpenAIApi } = require("openai");
 const FileWalker = require("./FileWalker.js");
 const AIMessage = require("./AIMessage.js");
 
-const sourcePath = "./tests/mock-project/src";
+const sourcePath = process.argv[2];
+if (!sourcePath) {
+  throw new Error("You must provide a source path");
+}
 const configuration = new Configuration({
   apiKey: process.env.OPENAI_API_KEY,
 });
